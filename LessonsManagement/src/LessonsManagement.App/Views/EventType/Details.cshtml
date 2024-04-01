@@ -1,0 +1,43 @@
+﻿@model LessonsManagement.App.ViewModels.EventTypeViewModel
+
+@{
+    ViewData["Title"] = "Event Type Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4 style="padding-top: 50px">@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.EventTypeName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EventTypeName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.price)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.price)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DurationTimeInMinutes)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DurationTimeInMinutes)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a class="btn btn-dark"  asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a class="btn btn-info" asp-action="Index">Back to List</a>
+    </div>

@@ -1,0 +1,147 @@
+﻿@model LessonsManagement.Business.Conciliation.ConciliationList
+
+@{
+    ViewData["Title"] = "Conciliation";
+}
+
+<div class="text-bg-secondary p-3">
+    <p class=".bg-dark font-weight-bold"><h2>@ViewData["Title"]</h2></p>
+</div>
+<hr />
+
+<div class="text-bg-secondary p-3">
+    <p class=".bg-dark font-weight-bold"><h2>Match</h2></p>
+</div>
+
+<table class="table table-bordered border-primary w-75">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().LessonId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().LessonImportedId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().StudenName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().StudenNameImported)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().EventType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().EventTypeImported)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().ExecutionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().ExecutionDateImported)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match.FirstOrDefault().PriceImported)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Match)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.LessonId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.LessonImportedId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.StudenName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.StudenName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.EventType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.EventTypeImported)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ExecutionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ExecutionDateImported)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PriceImported)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr class="hr" />
+
+
+<div class="text-bg-secondary p-3">
+    <p class=".bg-dark font-weight-bold"><h2>Divergencies</h2></p>
+</div>
+
+    <table class="table table-bordered border-primary w-75">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonImportedId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().TypeError)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonImportedValue)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Divergencies)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LessonId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LessonImportedId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeError)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LessonValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LessonImportedValue)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr class="hr" />
+
+<div>
+    <a class="btn btn-info" href="javascript:window.history.back();">Back</a>
+</div>

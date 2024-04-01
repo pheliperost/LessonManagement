@@ -1,0 +1,17 @@
+﻿@model IEnumerable<LessonsManagement.App.ViewModels.LessonViewModel>
+
+@{
+    ViewData["Title"] = "Lessons";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a class="btn btn-info" asp-action="Create">Create New</a>
+</p>
+
+<vc:Summary></vc:Summary>
+
+<div>
+    <partial name="_ListLessons"/>
+</div>

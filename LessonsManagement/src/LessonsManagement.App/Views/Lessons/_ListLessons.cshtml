@@ -1,0 +1,39 @@
+﻿@model IEnumerable<LessonsManagement.App.ViewModels.LessonViewModel>
+
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventType.EventTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExecutionDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType.EventTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExecutionDate)
+            </td>
+            <td class="text-right">
+                <a class="btn btn-info" asp-controller="Lessons" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a> |
+                <a class="btn btn-warning" asp-controller="Lessons" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a> |
+                <a class="btn btn-danger" asp-controller="Lessons" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

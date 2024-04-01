@@ -1,0 +1,43 @@
+﻿@model IEnumerable<LessonsManagement.App.ViewModels.StudentViewModel>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<vc:Summary></vc:Summary>
+
+<p class="text-center">
+    <a class="btn btn-info" asp-action="Create">Create New Student</a>
+</p>
+<table class="table table-hover">
+    <thead class="table-dark">    
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th></th>
+        </tr>    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td  class="text-right">
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a> |
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

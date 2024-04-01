@@ -1,0 +1,11 @@
+﻿@model IEnumerable<LessonsManagement.App.ViewModels.LessonViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<vc:Summary></vc:Summary>
+<div class="text-center">
+    <div>
+        <partial name="../Lessons/_ListLessonsGrouped" />
+    </div>
+</div>

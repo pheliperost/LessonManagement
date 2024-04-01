@@ -1,0 +1,35 @@
+﻿@model LessonsManagement.App.ViewModels.FileImportedViewModel
+
+@{
+    ViewData["Title"] = "File Imported Details";
+}
+
+<h4 style="padding-top: 50px">@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StartDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FileDescription)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FileDescription)
+            </dd>
+        </dl>
+    </div>       
+</div>
+
+<div>
+    <a class="btn btn-info" href="javascript:window.history.back();">Back</a>
+</div>

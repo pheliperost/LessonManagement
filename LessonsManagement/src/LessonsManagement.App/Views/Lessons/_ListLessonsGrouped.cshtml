@@ -1,0 +1,53 @@
+﻿@using LessonsManagement.App.Extensions
+@model IEnumerable<LessonsManagement.App.ViewModels.LessonViewModel>
+
+
+
+
+@foreach (var item1 in Model.GroupBy(p => p.ExecutionDate.Date))
+{
+<div class="container">
+    <div class="text-bg-secondary p-3">
+        <p class=".bg-dark font-weight-bold"><h2>@Convert.ToDateTime(item1.Key).ToLongDateString()</h2></p>
+    </div>
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventType.EventTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.StudentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExecutionDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(p=>p.ExecutionDate.Date == item1.Key).OrderByDescending(p => p.ExecutionDate))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventType.EventTypeName)
+                    </td>
+                    <td>
+                        @this.FormatStudentName(item.Student)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExecutionDate)
+                    </td>
+                    <td supress-by-action="Edit" class="text-right">
+                        <a class="btn btn-info" asp-controller="Lessons" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a> |
+                        <a class="btn btn-warning" asp-controller="Lessons" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a> |
+                        <a class="btn btn-danger" asp-controller="Lessons" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    
+}
+

@@ -1,0 +1,41 @@
+﻿@model LessonsManagement.App.ViewModels.LessonViewModel
+
+@{
+    ViewData["Title"] = "Lesson Details";
+}
+
+<h4 style="padding-top: 50px">@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.EventType.EventTypeName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EventType.EventTypeName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Student.StudentName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Student.StudentName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ExecutionDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ExecutionDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+        </dl>
+    </div>
+<div>
+    <a class="btn btn-dark" asp-controller="Lessons" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-info" href="javascript:window.history.back();">Back</a>
+</div>
