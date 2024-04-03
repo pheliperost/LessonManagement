@@ -15,8 +15,10 @@ namespace LessonsManagement.Business.Conciliation.Divergencies
             DivergencyRow divergency = new DivergencyRow();
 
             if (_lesson.EventType.Price != _lessonImported.Price) {
-                divergency.Message = "Price is different for lesson id " + " (lesson: " + _lesson.StudentId.ToString() 
-                                    + " imported: " + _lessonImported.StudentId.ToString();
+                divergency.Message = "Execution Date: (" + _lesson.ExecutionDate.ToString() + ")" +
+                                    ", Event Type: (" + _lessonImported.EventType.EventTypeName + ")" +
+                                    ", Student: (" +
+                                    (_lessonImported.Student != null ? _lessonImported.Student.StudentName + ")" : " - )");
 
                 divergency.TypeError = "Price";
                 divergency.LessonId = _lesson.Id.ToString();

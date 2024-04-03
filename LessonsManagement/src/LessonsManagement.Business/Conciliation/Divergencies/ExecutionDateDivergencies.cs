@@ -15,8 +15,10 @@ namespace LessonsManagement.Business.Conciliation.Divergencies
             DivergencyRow divergency = new DivergencyRow();
 
             if (_lesson.ExecutionDate != _lessonImported.ExecutionDate) {
-                divergency.Message = "Execution Date different for lesson id " + " (lesson: " + _lesson.StudentId.ToString() 
-                                    + " imported: " + _lessonImported.StudentId.ToString();
+                divergency.Message = "Execution Date: (" + _lesson.ExecutionDate.ToString() + ")" +
+                                    ", Event Type: (" + _lessonImported.EventType.EventTypeName + ")" +
+                                    ", Student: (" +
+                                    (_lessonImported.Student != null ? _lessonImported.Student.StudentName + ")" : " - )");
 
                 divergency.TypeError = "Execution Date";
                 divergency.LessonId = _lesson.Id.ToString();
