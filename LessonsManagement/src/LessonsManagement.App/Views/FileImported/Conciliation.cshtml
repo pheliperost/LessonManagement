@@ -87,6 +87,9 @@
         }
     </tbody>
 </table>
+<div>
+    Total: @Model.Match.Sum(p => p.Price).ToString("C2")
+</div>
 
 <hr class="hr" />
 
@@ -95,58 +98,58 @@
     <p class=".bg-dark font-weight-bold"><h2>Divergencies</h2></p>
 </div>
 
-    <table class="table table-bordered border-primary">
-        <thead class="table-dark">
+<table class="table table-bordered border-primary">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonImportedId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().TypeError)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonImportedValue)
+            </th>
+            <th style="width: 50%;">
+                @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().Message)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Divergencies)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonImportedId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().TypeError)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().LessonImportedValue)
-                </th>
-                <th style="width: 50%;">
-                    @Html.DisplayNameFor(model => model.Divergencies.FirstOrDefault().Message)
-                </th>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonImportedId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeError)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonImportedValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Divergencies)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LessonId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LessonImportedId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TypeError)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LessonValue)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LessonImportedValue)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Message)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
-    <hr class="hr" />
+<hr class="hr" />
 
 <div>
     <a class="btn btn-info" href="javascript:window.history.back();">Back</a>
