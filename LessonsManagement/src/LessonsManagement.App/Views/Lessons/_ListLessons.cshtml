@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.OrderByDescending(p => p.ExecutionDate))
         {
         <tr>
             <td>
