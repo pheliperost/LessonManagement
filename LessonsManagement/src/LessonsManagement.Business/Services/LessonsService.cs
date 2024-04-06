@@ -66,16 +66,21 @@ namespace LessonsManagement.Business.Services
         private async Task<bool> CheckValidPeriodLesson(Lesson lesson)
         {
             var timeDurationInMinutes = await _eventTypeRepository.GetEventType(lesson.EventTypeId);
+
+            var dateStart = lesson.ExecutionDate;
             var dateEnd = lesson.ExecutionDate.AddMinutes(timeDurationInMinutes.DurationTimeInMinutes);
+           
 
             var AllLessonsPerDay = await _lessonRepository.GetLessonsByExecutedDay(lesson.ExecutionDate.Date);
 
-            var lessonsStartDate = AllLessonsPerDay.Where(p => p.ExecutionDate >= lesson.ExecutionDate
-                                                            && lesson.ExecutionDate < p.ExecutionDate);
+            var StartBeforeLessonAndFinishBeforeEnd = AllLessonsPerDay.Where(p => dateStart <= p.ExecutionDate
+                                                            && dateEnd >= p.ExecutionDate.AddMinutes(p.EventType.DurationTimeInMinutes));
             
-            var lessonsEndDate = AllLessonsPerDay.Where(p => p.ExecutionDate >= dateEnd
-                                                            && lesson.ExecutionDate < p.ExecutionDate);
-            if(lessonsStartDate.Count() > 0 || lessonsEndDate.Count() > 0)
+            var MiddleLessonAndEndAfterEnd = AllLessonsPerDay.Where(p =>dateStart >= p.ExecutionDate
+                                                            && dateEnd  >= p.ExecutionDate.AddMinutes(p.EventType.DurationTimeInMinutes));
+            
+            
+            if(StartBeforeLessonAndFinishBeforeEnd.Count() > 0 || MiddleLessonAndEndAfterEnd.Count() > 0)
             return false;
 
             return true;
