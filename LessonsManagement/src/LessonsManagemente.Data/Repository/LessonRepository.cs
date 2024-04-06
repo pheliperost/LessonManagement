@@ -20,13 +20,21 @@ namespace LessonsManagement.Data.Repository
 
         public async Task<IEnumerable<Lesson>> GetLessonsByExecutedDay(DateTime dateexecution)
         {
-            return await _dataDbContext.Lesson.AsNoTracking().Where(p => p.ExecutionDate.Equals(dateexecution)).ToListAsync();
+            return await _dataDbContext.Lesson
+                    .Where(p => p.ExecutionDate.Date.Equals(dateexecution))
+                    .Include(f => f.EventType)
+                    .AsNoTracking()
+                    .ToListAsync();
         }
 
 
         public async Task<IEnumerable<Lesson>> GetStudenAndEventTypetInLesson()
         {
-            return await _dataDbContext.Lesson.Include(f => f.Student).Include(f => f.EventType).AsNoTracking().ToListAsync();
+            return await _dataDbContext.Lesson
+                .Include(f => f.Student)
+                .Include(f => f.EventType)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Lesson>> GetLessonWithDetailsOrdernedByDate()

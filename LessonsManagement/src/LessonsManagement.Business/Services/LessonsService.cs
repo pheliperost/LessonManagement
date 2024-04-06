@@ -3,6 +3,7 @@ using LessonsManagement.Business.Models;
 using LessonsManagement.Business.Models.Validations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonsManagement.Business.Services
@@ -10,15 +11,19 @@ namespace LessonsManagement.Business.Services
     public class LessonsService : BaseService, ILessonsService
     {
         ILessonRepository _lessonRepository;
+        IEventTypeRepository _eventTypeRepository;
 
         public LessonsService(ILessonRepository lessonRepository,
-                               INotifyer notifyer) : base(notifyer)
+                              IEventTypeRepository eventTypeRepository,
+        INotifyer notifyer) : base(notifyer)
         {
             _lessonRepository = lessonRepository;
+            _eventTypeRepository = eventTypeRepository;
         }
 
         public async Task Add(Lesson lesson)
         {
+            if(!await CheckValidPeriodLesson(lesson)) return;
             if (!ExecuteValidation(new LessonsValidation(), lesson)) return;
 
             await _lessonRepository.Add(lesson);
@@ -56,6 +61,24 @@ namespace LessonsManagement.Business.Services
         Task<Lesson> ILessonsService.ReturnEventTypeLesson()
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<bool> CheckValidPeriodLesson(Lesson lesson)
+        {
+            var timeDurationInMinutes = await _eventTypeRepository.GetEventType(lesson.EventTypeId);
+            var dateEnd = lesson.ExecutionDate.AddMinutes(timeDurationInMinutes.DurationTimeInMinutes);
+
+            var AllLessonsPerDay = await _lessonRepository.GetLessonsByExecutedDay(lesson.ExecutionDate.Date);
+
+            var lessonsStartDate = AllLessonsPerDay.Where(p => p.ExecutionDate >= lesson.ExecutionDate
+                                                            && lesson.ExecutionDate < p.ExecutionDate);
+            
+            var lessonsEndDate = AllLessonsPerDay.Where(p => p.ExecutionDate >= dateEnd
+                                                            && lesson.ExecutionDate < p.ExecutionDate);
+            if(lessonsStartDate.Count() > 0 || lessonsEndDate.Count() > 0)
+            return false;
+
+            return true;
         }
 
         public async Task<IEnumerable<Lesson>> GetLessonsByPeriod(DateTime startDate, DateTime endDate)
