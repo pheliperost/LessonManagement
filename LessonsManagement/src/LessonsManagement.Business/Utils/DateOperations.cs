@@ -28,5 +28,20 @@ namespace LessonsManagement.Business.Utils
                                          Convert.ToInt32(dateSplit[0]));
             return dateConverted;
         }
+
+        public static bool CheckIfDatesOverlapps(DateTime dateStart1, DateTime dateEnd1, DateTime dateStart2, DateTime dateEnd2)
+        {
+            //overlap before
+            if ((dateStart1 <= dateStart2 && dateStart1 <= dateEnd2)
+                && (dateEnd1 <= dateEnd2 && dateEnd1 >= dateStart2))
+                return true;
+
+            //overlap after
+            if ((dateStart1 >= dateStart2 && dateStart1 <= dateEnd2)
+                && ( dateEnd1 >= dateEnd2 && dateEnd1 >= dateStart2))
+                return true;
+
+            return false;
+        }
     }
 }

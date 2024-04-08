@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonsManagement.Business"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonsManagement.Data", "src\LessonsManagemente.Data\LessonsManagement.Data.csproj", "{27043443-D220-46BB-ABB0-BDFCC8BC2534}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXUnit.Tests", "src\TestXUnit.Tests\TestXUnit.Tests.csproj", "{50ED0CEB-7061-4660-9858-82A20522B236}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestXUnitBusiness.Tests", "src\TestXUnit.Tests\TestXUnitBusiness.Tests.csproj", "{50ED0CEB-7061-4660-9858-82A20522B236}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
