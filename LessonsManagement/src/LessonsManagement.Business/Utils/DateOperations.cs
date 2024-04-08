@@ -29,7 +29,7 @@ namespace LessonsManagement.Business.Utils
             return dateConverted;
         }
 
-        public static bool CheckIfDatesOverlapps(DateTime dateStart1, DateTime dateEnd1, DateTime dateStart2, DateTime dateEnd2)
+        public static bool CheckIfDatesOverlaps(DateTime dateStart1, DateTime dateEnd1, DateTime dateStart2, DateTime dateEnd2)
         {
             //overlap before
             if ((dateStart1 <= dateStart2 && dateStart1 <= dateEnd2)
