@@ -60,10 +60,14 @@ namespace LessonsManagement.App.Controllers
         [Route("new-lesson")]
         public async Task<IActionResult> Create()
         {
+            return View(await PopulateStudentAndEventType());
+        }
+
+        private async Task<LessonViewModel> PopulateStudentAndEventType()
+        {
             var lessonViewModel = await PopulateStudentsAndEventTypes(new LessonViewModel());
             lessonViewModel.ExecutionDate = DateTime.Now;
-
-            return View(lessonViewModel);
+            return lessonViewModel;
         }
 
         [ClaimsAuthorize("Lessons", "Add")]
@@ -77,7 +81,7 @@ namespace LessonsManagement.App.Controllers
             var lesson = _mapper.Map<Lesson>(lessonViewModel);
             await _LessonService.Add(lesson);
 
-            if (!ValidOperation()) return View(lessonViewModel);
+            if (!ValidOperation()) return View(await PopulateStudentAndEventType());
 
             return RedirectToAction("Index");
         }

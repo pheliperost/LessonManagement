@@ -1,6 +1,7 @@
 ﻿using LessonsManagement.Business.Interfaces;
 using LessonsManagement.Business.Models;
 using LessonsManagement.Business.Models.Validations;
+using LessonsManagement.Business.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace LessonsManagement.Business.Services
 
         public async Task Add(Lesson lesson)
         {
-            if(!await CheckValidPeriodLesson(lesson)) return;
+            if(!await ISValidPeriodLesson(lesson)) return;
             if (!ExecuteValidation(new LessonsValidation(), lesson)) return;
 
             await _lessonRepository.Add(lesson);
@@ -63,7 +64,7 @@ namespace LessonsManagement.Business.Services
             throw new NotImplementedException();
         }
 
-        private async Task<bool> CheckValidPeriodLesson(Lesson lesson)
+        private async Task<bool> ISValidPeriodLesson(Lesson lesson)
         {
             var timeDurationInMinutes = await _eventTypeRepository.GetEventType(lesson.EventTypeId);
 
@@ -73,15 +74,19 @@ namespace LessonsManagement.Business.Services
 
             var AllLessonsPerDay = await _lessonRepository.GetLessonsByExecutedDay(lesson.ExecutionDate.Date);
 
-            var StartBeforeLessonAndFinishBeforeEnd = AllLessonsPerDay.Where(p => dateStart <= p.ExecutionDate
-                                                            && dateEnd >= p.ExecutionDate.AddMinutes(p.EventType.DurationTimeInMinutes));
-            
-            var MiddleLessonAndEndAfterEnd = AllLessonsPerDay.Where(p =>dateStart >= p.ExecutionDate
-                                                            && dateEnd  >= p.ExecutionDate.AddMinutes(p.EventType.DurationTimeInMinutes));
-            
-            
-            if(StartBeforeLessonAndFinishBeforeEnd.Count() > 0 || MiddleLessonAndEndAfterEnd.Count() > 0)
-            return false;
+            foreach (var item in AllLessonsPerDay)
+            {
+                var result = DateOperations.CheckIfDatesOverlaps(dateStart,
+                                                    dateEnd,
+                                                    item.ExecutionDate,
+                                                    item.ExecutionDate.AddMinutes(item.EventType.DurationTimeInMinutes));
+
+                if (result)
+                {
+                    Notify("Invalid date execution, There is another lesson registered with this data range.");
+                    return false;
+                }
+            }
 
             return true;
         }
