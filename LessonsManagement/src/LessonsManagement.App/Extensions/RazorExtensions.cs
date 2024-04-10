@@ -13,5 +13,10 @@ namespace LessonsManagement.App.Extensions
             return studentName == null ? "-" : studentName.StudentName;
         }
 
+        public static string FormatDate(this RazorPage page, DateTime executionDate)
+        {
+            return executionDate.ToString("MM/dd/yyyy HH:mm");
+        }
+
     }
 }
