@@ -14,6 +14,7 @@ namespace LessonsManagement.Business.Interfaces
         Task<IEnumerable<Lesson>> GetLessonsByStudent(Guid lessonId);
         Task<IEnumerable<Lesson>> GetLessonsByPeriod(DateTime startDate, DateTime endDate);
         Task<EventType> ReturnEventTypeLesson();
+        Task<IEnumerable<Lesson>> GetLessonFilter(string search);
 
     }
 }

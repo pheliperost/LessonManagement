@@ -1,9 +1,11 @@
 ﻿using LessonsManagement.Business.Interfaces;
 using LessonsManagement.Business.Models;
+using LessonsManagement.Business.Utils;
 using LessonsManagement.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,6 +37,37 @@ namespace LessonsManagement.Data.Repository
                 .Include(f => f.EventType)
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Lesson>> GetLessonFilter(string search)
+        {
+             var resultSet = await _dataDbContext.Lesson
+                .Include(f => f.Student)
+                .Include(f => f.EventType)
+                .AsNoTracking()
+                .ToListAsync();
+
+            var eventTypeRegisters = resultSet
+                    .Where(p => p.EventType.EventTypeName.ToLower().Contains(search.ToLower()));
+            
+            var studenNameRegisters = resultSet
+                                        .Where(f => f.Student != null)
+                                        .Where(p => p.Student.StudentName.ToLower()
+                                        .Contains(search.ToLower()));
+
+            DateTime dateSearch;
+            DateTime.TryParse(search, out dateSearch);
+
+            var executionDateRegisters = resultSet.Where(p => p.ExecutionDate.Date.Equals(dateSearch.Date));
+
+            List<Lesson> listResult = eventTypeRegisters.ToList();
+
+            listResult.AddRange(studenNameRegisters.ToList());
+            listResult.AddRange(executionDateRegisters);
+
+
+
+            return listResult.Distinct().OrderByDescending(p =>p.ExecutionDate);
         }
 
         public async Task<IEnumerable<Lesson>> GetLessonWithDetailsOrdernedByDate()
@@ -74,5 +107,6 @@ namespace LessonsManagement.Data.Repository
             return await _dataDbContext.EventType.Where(p => p.EventTypeName.Trim() == "Lesson").FirstOrDefaultAsync();
         }
 
+        
     }
 }
