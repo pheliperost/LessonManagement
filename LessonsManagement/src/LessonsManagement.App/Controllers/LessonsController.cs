@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonsManagement.App.Controllers
@@ -37,9 +38,24 @@ namespace LessonsManagement.App.Controllers
 
         [AllowAnonymous]
         [Route("list-lessons")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            if(searchString == null) 
             return View(_mapper.Map<IEnumerable<LessonViewModel>>(await _LessonRepository.GetStudenAndEventTypetInLesson()));
+
+            var result = await LessonFilter(searchString);
+            return View(_mapper.Map<IEnumerable<LessonViewModel>>(result));
+
+        }
+
+        private async Task<IEnumerable<Lesson>> LessonFilter(string search)
+        {
+            var itens = await _LessonRepository.GetStudenAndEventTypetInLesson();
+            var result = itens.Where(p => p.EventType.EventTypeName.ToLower().Contains(search.ToLower())
+                                   // || p.Student.StudentName.ToLower().Contains(search.ToLower())
+                                    || p.ExecutionDate.ToShortDateString().Contains(search));
+
+            return result;
         }
 
         [AllowAnonymous]
