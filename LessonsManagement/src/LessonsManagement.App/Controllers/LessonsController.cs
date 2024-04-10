@@ -51,8 +51,8 @@ namespace LessonsManagement.App.Controllers
         private async Task<IEnumerable<Lesson>> LessonFilter(string search)
         {
             var itens = await _LessonRepository.GetStudenAndEventTypetInLesson();
-            var result = itens.Where(p => p.EventType.EventTypeName.ToLower().Contains(search.ToLower())
-                                   // || p.Student.StudentName.ToLower().Contains(search.ToLower())
+            var result = itens.Where(p => p.EventType.EventTypeName.ToLower().Equals(search.ToLower())
+                                    || (p.Student != null ? p.Student.StudentName.ToLower().Contains(search.ToLower()): false)
                                     || p.ExecutionDate.ToShortDateString().Contains(search));
 
             return result;
