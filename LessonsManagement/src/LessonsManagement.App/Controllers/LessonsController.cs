@@ -45,18 +45,11 @@ namespace LessonsManagement.App.Controllers
 
             var result = await LessonFilter(searchString);
             return View(_mapper.Map<IEnumerable<LessonViewModel>>(result));
-
         }
 
         private async Task<IEnumerable<Lesson>> LessonFilter(string search)
         {
-            //var itens = await _LessonRepository.GetStudenAndEventTypetInLesson();
-            //var result = itens.Where(p => p.EventType.EventTypeName.ToLower().Equals(search.ToLower())
-            //                        || (p.Student != null ? p.Student.StudentName.ToLower().Contains(search.ToLower()): false)
-            //                        || p.ExecutionDate.ToShortDateString().Contains(search));
-
             var result = await _LessonRepository.GetLessonFilter(search);
-
             return result;
         }
 

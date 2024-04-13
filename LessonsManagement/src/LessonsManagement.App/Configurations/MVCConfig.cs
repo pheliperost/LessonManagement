@@ -14,6 +14,7 @@ namespace LessonsManagement.App.Configurations
                 }
                 ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+
             return services;
         }
     }

@@ -5,7 +5,23 @@
 
 <vc:Summary></vc:Summary>
 <div class="text-center">
+    <div id="calender"></div>
+
     <div>
         <partial name="../Lessons/_ListLessonsGrouped" />
     </div>
 </div>
+
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="~/js/Calendar.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            CalendarEvents();
+        })
+    </script>
+}

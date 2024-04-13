@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using LessonsManagement.App.ViewModels;
 using LessonsManagement.Business.Interfaces;
+using LessonsManagement.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace LessonsManagement.App.Controllers
@@ -29,6 +33,17 @@ namespace LessonsManagement.App.Controllers
 
             return View(_mapper.Map<IEnumerable<LessonViewModel>>(await _LessonRepository.GetLessonWithDetailsOrdernedByDate()));
         }
+
+        //[AllowAnonymous]
+        //[Route("GetEventsAsync")]
+        [HttpGet]
+        public async Task<IActionResult> GetEventsAsync()
+        {
+            var events = await _LessonRepository.GetLessonToPopulateCalendar();
+
+            return new JsonResult(events);
+        }
+
 
         public IActionResult Privacy()
         {
