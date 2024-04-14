@@ -79,7 +79,7 @@ namespace LessonsManagement.Data.Repository
                                               .ToListAsync();
         }
 
-        public async Task<IEnumerable<Lesson>> GetLessonToPopulateCalendar()
+        public async Task<List<Lesson>> GetLessonToPopulateCalendar()
         {
             return await _dataDbContext.Lesson.ToListAsync();
         }

@@ -96,6 +96,26 @@ namespace LessonsManagement.Business.Services
             return await _lessonRepository.GetLessonsByPeriod(startDate, endDate);
         }
 
+        public async Task<List<CalendarModel>> GetLessonToPopulateCalendar()
+        {
+            var itensevt = await _lessonRepository.GetLessonToPopulateCalendar();
+
+             List<CalendarModel> events = new List<CalendarModel>();
+
+            foreach (var item in itensevt)
+            {
+                CalendarModel itemCalendar = new CalendarModel();
+                itemCalendar.title = "titulo maneiro " + item.Id.ToString();
+                itemCalendar.start = item.ExecutionDate;
+                itemCalendar.end = item.ExecutionDate.AddMinutes(45);
+                itemCalendar.allDay = false;
+
+                events.Add(itemCalendar);
+            }
+
+            return events;
+        }
+
         public void Dispose()
         {
             _lessonRepository?.Dispose();

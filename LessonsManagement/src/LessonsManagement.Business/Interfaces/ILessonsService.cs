@@ -13,6 +13,7 @@ namespace LessonsManagement.Business.Interfaces
         Task Delete(Guid id);
         Task<Lesson> ReturnEventTypeLesson();
         Task<IEnumerable<Lesson>> GetLessonsByPeriod(DateTime startDate, DateTime endDate);
+        Task<List<CalendarModel>> GetLessonToPopulateCalendar();
 
     }
 }

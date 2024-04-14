@@ -15,15 +15,18 @@ namespace LessonsManagement.App.Controllers
     {
         private readonly IStudentRepository _StudentRepository;
         private readonly ILessonRepository _LessonRepository;
+        private readonly ILessonsService _LessonsService;
         private readonly IMapper _mapper;
 
 
         public HomeController(ILessonRepository lessonRepository,
                                  IStudentRepository studentRepository,
+                                 ILessonsService lessonsService,
                                  INotifyer notifyer,
                                  IMapper mapper) : base(notifyer)
         {
             _LessonRepository = lessonRepository;
+            _LessonsService = lessonsService;
             _StudentRepository = studentRepository;
             _mapper = mapper;
         }
@@ -39,7 +42,9 @@ namespace LessonsManagement.App.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEventsAsync()
         {
-            var events = await _LessonRepository.GetLessonToPopulateCalendar();
+            var events = await _LessonsService.GetLessonToPopulateCalendar();
+
+
 
             return new JsonResult(events);
         }

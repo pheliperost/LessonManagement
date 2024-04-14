@@ -3,17 +3,16 @@
     var events = [];
     $.ajax({
         type: "GET",
-        url: "/home/GetEvents",
+        url: "/home/GetEventsAsync",
         success: function (events) {
             $.each(events, function (i, v) {
                 events.push({
-                    title: "skate",
-                    description: v.Description,
-                    start: moment(v.ExecutionDate),
-                    end: v.ExecutionDate != null ? moment(v.ExecutionDate) : null
-                    //,
-                    //color: v.ThemeColor,
-                    //allDay: v.IsFullDay
+                    title: v.title,
+                    description: v.title,
+                    start: moment(v.start),
+                    end: v.end != null ? moment(v.end) : null,
+                    color: "blue",// v.ThemeColor,
+                    allDay: v.allDay
                 });
             })
 
