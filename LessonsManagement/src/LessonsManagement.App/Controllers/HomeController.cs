@@ -43,9 +43,6 @@ namespace LessonsManagement.App.Controllers
         public async Task<IActionResult> GetEventsAsync()
         {
             var events = await _LessonsService.GetLessonToPopulateCalendar();
-
-
-
             return new JsonResult(events);
         }
 

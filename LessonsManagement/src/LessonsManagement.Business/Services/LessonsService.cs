@@ -109,7 +109,7 @@ namespace LessonsManagement.Business.Services
                 itemCalendar.title = item.Student!= null ? item.Student.StudentName :
                                                         item.EventType.EventTypeName;
 
-                itemCalendar.description = "Às " + item.ExecutionDate.ToString();
+                itemCalendar.description = item.ExecutionDate.ToString();
                 itemCalendar.start = item.ExecutionDate;
                 itemCalendar.end = ReturnEndDateTimeForLesson(item);
                 itemCalendar.allDay = false;
