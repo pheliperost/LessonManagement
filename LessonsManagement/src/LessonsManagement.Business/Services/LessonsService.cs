@@ -98,22 +98,43 @@ namespace LessonsManagement.Business.Services
 
         public async Task<List<CalendarModel>> GetLessonToPopulateCalendar()
         {
-            var itensevt = await _lessonRepository.GetLessonToPopulateCalendar();
+            var itensevt = await _lessonRepository.GetLessonWithDetailsOrdernedByDate();
 
              List<CalendarModel> events = new List<CalendarModel>();
 
             foreach (var item in itensevt)
             {
                 CalendarModel itemCalendar = new CalendarModel();
-                itemCalendar.title = "titulo maneiro " + item.Id.ToString();
+
+                itemCalendar.title = item.Student!= null ? item.Student.StudentName :
+                                                        item.EventType.EventTypeName;
+
+                itemCalendar.description = "Às " + item.ExecutionDate.ToString();
                 itemCalendar.start = item.ExecutionDate;
-                itemCalendar.end = item.ExecutionDate.AddMinutes(45);
+                itemCalendar.end = ReturnEndDateTimeForLesson(item);
                 itemCalendar.allDay = false;
+                itemCalendar.color = setEventColor(item);
 
                 events.Add(itemCalendar);
             }
 
             return events;
+        }
+
+        private string setEventColor(Lesson lesson)
+        {
+            if (lesson.Student != null)
+                return "red";
+
+            if (lesson.EventType.EventTypeName.ToLower() == "rehearsal")
+                return "blue";
+
+                return "orange";
+        }
+
+        private DateTime ReturnEndDateTimeForLesson(Lesson lesson)
+        {
+            return lesson.ExecutionDate.AddMinutes(lesson.EventType.DurationTimeInMinutes);
         }
 
         public void Dispose()
