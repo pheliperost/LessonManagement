@@ -4,14 +4,14 @@
     $.ajax({
         type: "GET",
         url: "/home/GetEventsAsync",
-        success: function (events) {
-            $.each(events, function (i, v) {
+        success: function (data) {
+            $.each(data, function (i, v) {
                 events.push({
                     title: v.title,
                     description: v.title,
                     start: moment(v.start),
                     end: v.end != null ? moment(v.end) : null,
-                    color: v.ThemeColor,
+                    color: v.color,
                     allDay: v.allDay
                 });
             })
