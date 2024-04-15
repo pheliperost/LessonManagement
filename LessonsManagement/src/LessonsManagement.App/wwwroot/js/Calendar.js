@@ -26,15 +26,16 @@
     function GenerateCalender(events) {
         $('#calender').fullCalendar('destroy');
         $('#calender').fullCalendar({
+            themesystem: 'jquery-ui',
             contentHeight: 400,
             defaultDate: new Date(),
             timeFormat: 'h(:mm)a',
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,basicWeek,basicDay,agenda'
+                right: 'month,basicWeek,basicDay,agenda,listMonth'
             },
-            eventLimit: true,
+            eventLimit: false,
             //eventColor: '#378006',
             events: events,
             eventClick: function (calEvent, jsEvent, view) {
