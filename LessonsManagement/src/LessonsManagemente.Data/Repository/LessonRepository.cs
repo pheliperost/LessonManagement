@@ -79,11 +79,6 @@ namespace LessonsManagement.Data.Repository
                                               .ToListAsync();
         }
 
-        public async Task<List<Lesson>> GetLessonToPopulateCalendar()
-        {
-            return await _dataDbContext.Lesson.ToListAsync();
-        }
-
         public async Task<IEnumerable<Lesson>> GetLessonsByStudent(Guid lessonId)
         {
             return await Search(p => p.Id == lessonId);
