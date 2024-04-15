@@ -7,6 +7,6 @@ namespace LessonsManagement.Business.Conciliation
     public class ConciliationList
     {
         public IEnumerable<Match> Match;
-        public IEnumerable<Divergency> Divergencies;
+        public IEnumerable<DivergencyRow> Divergencies;
     }
 }

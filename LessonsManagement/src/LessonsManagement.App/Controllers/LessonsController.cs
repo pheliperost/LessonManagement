@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LessonsManagement.App.Controllers
@@ -37,9 +38,19 @@ namespace LessonsManagement.App.Controllers
 
         [AllowAnonymous]
         [Route("list-lessons")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            if(searchString == null) 
             return View(_mapper.Map<IEnumerable<LessonViewModel>>(await _LessonRepository.GetStudenAndEventTypetInLesson()));
+
+            var result = await LessonFilter(searchString);
+            return View(_mapper.Map<IEnumerable<LessonViewModel>>(result));
+        }
+
+        private async Task<IEnumerable<Lesson>> LessonFilter(string search)
+        {
+            var result = await _LessonRepository.GetLessonFilter(search);
+            return result;
         }
 
         [AllowAnonymous]
@@ -60,10 +71,14 @@ namespace LessonsManagement.App.Controllers
         [Route("new-lesson")]
         public async Task<IActionResult> Create()
         {
+            return View(await PopulateStudentAndEventType());
+        }
+
+        private async Task<LessonViewModel> PopulateStudentAndEventType()
+        {
             var lessonViewModel = await PopulateStudentsAndEventTypes(new LessonViewModel());
             lessonViewModel.ExecutionDate = DateTime.Now;
-
-            return View(lessonViewModel);
+            return lessonViewModel;
         }
 
         [ClaimsAuthorize("Lessons", "Add")]
@@ -77,7 +92,7 @@ namespace LessonsManagement.App.Controllers
             var lesson = _mapper.Map<Lesson>(lessonViewModel);
             await _LessonService.Add(lesson);
 
-            if (!ValidOperation()) return View(lessonViewModel);
+            if (!ValidOperation()) return View(await PopulateStudentAndEventType());
 
             return RedirectToAction("Index");
         }
