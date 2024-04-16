@@ -7,6 +7,7 @@
         success: function (data) {
             $.each(data, function (i, v) {
                 events.push({
+                    lessonId: v.lessonId,
                     title: v.title,
                     description: v.title,
                     start: moment(v.start),
@@ -45,15 +46,18 @@
     }
 
     function clickEventCalendar(calEvent, jsEvent, view) {
-        $('#myModal #eventTitle').text(calEvent.title);
-        var $description = $('<div/>');
-        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
-        if (calEvent.end != null) {
-            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
-        }
-        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
-        $('#myModal #pDetails').empty().html($description);
+        //$('#myModal #eventTitle').text(calEvent.title);
+        //var $description = $('<div/>');
+        //$description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+        //if (calEvent.end != null) {
+        //    $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+        //}
+        //$description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+        //$('#myModal #pDetails').empty().html($description);
 
-        $('#myModal').appendTo("body").modal('show');
+       // $('#myModal').html('<a asp-action="AtualizarEndereco" asp-route-id='+ calEvent.lessonId + ' class="btn btn-info" data-modal="">');
+        //$('#myModal').appendTo("body").modal('show');
+
+        window.location.href = "/details-lessons/"+calEvent.lessonId;
     }
 }

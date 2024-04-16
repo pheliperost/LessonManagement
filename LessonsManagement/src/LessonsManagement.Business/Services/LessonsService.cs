@@ -106,6 +106,7 @@ namespace LessonsManagement.Business.Services
             {
                 CalendarModel itemCalendar = new CalendarModel();
 
+                itemCalendar.lessonId = item.Id;
                 itemCalendar.title = item.Student!= null ? item.Student.StudentName :
                                                         item.EventType.EventTypeName;
 

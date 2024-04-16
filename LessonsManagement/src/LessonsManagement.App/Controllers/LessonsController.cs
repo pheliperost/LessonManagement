@@ -67,6 +67,19 @@ namespace LessonsManagement.App.Controllers
             return View(lessonViewModel);
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> ModalDetails(Guid id)
+        {
+            var lessonViewModel = await GetLessonWithStudentAndEventType(id);
+
+            if (lessonViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_DetailsLesson", lessonViewModel);
+        }
+
         [ClaimsAuthorize("Lessons", "Add")]
         [Route("new-lesson")]
         public async Task<IActionResult> Create()

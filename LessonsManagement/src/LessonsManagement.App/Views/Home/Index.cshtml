@@ -7,29 +7,20 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 
-<div id="calender"></div>
-
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><span id="eventTitle"></span></h4>
-            </div>
-            <div class="modal-body">
-                <p id="pDetails"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+@*<div id="EnderecoTarget">
+    <partial name="../Lessons/_DetailsLesson"/>
+</div>*@
 
 <div class="text-center">
 
-    <div>
-        <partial name="../Lessons/_ListLessonsGrouped" />
+    <div id="calender"></div>
+
+    <div id="myModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="myModalContent"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -43,6 +34,7 @@
     <script>
         $(document).ready(function () {
             CalendarEvents();
+            AjaxModal();
         })
     </script>
 }
