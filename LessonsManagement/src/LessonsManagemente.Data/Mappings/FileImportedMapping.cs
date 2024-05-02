@@ -11,18 +11,18 @@ namespace LessonsManagement.Data.Mappings
             builder.HasKey(pk => pk.Id);
 
             builder.Property(p => p.FileDescription)
-                .HasColumnType("varchar(40)");
+                .HasColumnType(DataBaseTypes.Varchar(40));
 
             builder.Property(p => p.FilePath)
-                .HasColumnType("varchar(1000)");
+                .HasColumnType(DataBaseTypes.Varchar(1000));
 
             builder.Property(p => p.StartDate)
                 .IsRequired()
-                .HasColumnType("datetime");
+                .HasColumnType(DataBaseTypes.DateTime());
 
             builder.Property(p => p.EndDate)
                 .IsRequired()
-                .HasColumnType("datetime");
+                .HasColumnType(DataBaseTypes.DateTime());
 
             builder.ToTable("FileImported");
 

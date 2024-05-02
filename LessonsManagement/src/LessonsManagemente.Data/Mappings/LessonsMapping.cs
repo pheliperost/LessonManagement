@@ -12,11 +12,11 @@ namespace LessonsManagement.Data.Mappings
 
             builder.Property(p => p.ExecutionDate)
                 .IsRequired()
-                .HasColumnType("datetime");
+                .HasColumnType(DataBaseTypes.DateTime());
 
             builder.Property(p => p.Notes)
                 .IsRequired()
-                .HasColumnType("varchar(500)");
+                .HasColumnType(DataBaseTypes.Varchar(500));
 
             builder.ToTable("Lesson");
 
