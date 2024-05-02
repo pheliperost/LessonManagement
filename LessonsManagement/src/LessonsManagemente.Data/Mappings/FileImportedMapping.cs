@@ -8,7 +8,7 @@ namespace LessonsManagement.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<FileImported> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(pk => pk.Id);
 
             builder.Property(p => p.FileDescription)
                 .HasColumnType("varchar(40)");
