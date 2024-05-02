@@ -1,19 +1,20 @@
 using LessonsManagement.Business.Utils;
 using System;
+using TestXUnitBusiness.Tests;
 using Xunit;
 
 namespace TestXUnit.Tests
 {
     public class DateOperationsTests
     {
-        [Fact(DisplayName = "Período Sobrepoe Antes")]
+        [Theory(DisplayName = "Período Sobrepoe Antes")]
         [Trait("Categoria", "DateOperations Trait Testes")]
-        public void DateOperations_CheckIfPeriodOverlapsBefore_ShouldReturnTrue() 
-        {
-            DateTime dateStart1 = new DateTime(2023, 09, 01, 14, 45, 0);
-            DateTime dateEnd1 = new DateTime(2023, 09, 01, 15, 30, 0);
-            DateTime dateStart2 = new DateTime(2023, 09, 01, 14, 30, 0);
-            DateTime dateEnd2 = new DateTime(2023, 09, 01, 15, 15, 0);
+        [MemberData(nameof(DateParamOverlap.GetDatesOverlapping_Between_StartDate2_And_EndDate1), MemberType = typeof(DateParamOverlap))]
+        public void DateOperations_CheckIfPeriodOverlapsBefore_ShouldReturnTrue(DateTime dateStart1,
+                                                                                DateTime dateEnd1,
+                                                                                DateTime dateStart2,
+                                                                                DateTime dateEnd2)
+        { 
             
             var result = DateOperations.CheckIfDatesOverlaps(dateStart1, dateEnd1, dateStart2 ,dateEnd2);
 
@@ -21,14 +22,14 @@ namespace TestXUnit.Tests
 
         }
 
-        [Fact(DisplayName = "Período Sobrepoe Depois")]
+        [Theory(DisplayName = "Período Sobrepoe Depois")]
         [Trait("Categoria", "DateOperations Trait Testes")]
-        public void DateOperations_CheckIfPeriodOverlapsAfter_ShouldReturnTrue()
-        {
-            DateTime dateStart1 = new DateTime(2023, 09, 01, 14, 15, 0);
-            DateTime dateEnd1 = new DateTime(2023, 09, 01, 15, 00, 0);
-            DateTime dateStart2 = new DateTime(2023, 09, 01, 14, 30, 0);
-            DateTime dateEnd2 = new DateTime(2023, 09, 01, 15, 15, 0);
+        [MemberData(nameof(DateParamOverlap.GetDatesOverlapping_Between_EndDate1_And_StartDate2), MemberType = typeof(DateParamOverlap))]
+        public void DateOperations_CheckIfPeriodOverlapsAfter_ShouldReturnTrue(DateTime dateStart1,
+                                                                               DateTime dateEnd1,
+                                                                               DateTime dateStart2,
+                                                                               DateTime dateEnd2)
+        { 
 
             var result = DateOperations.CheckIfDatesOverlaps(dateStart1, dateEnd1, dateStart2, dateEnd2);
 
@@ -36,14 +37,14 @@ namespace TestXUnit.Tests
 
         }
 
-        [Fact(DisplayName = "Período Não Sobrepoe Antes")]
+        [Theory(DisplayName = "Período Não Sobrepoe Antes")]
         [Trait("Categoria", "DateOperations Trait Testes")]
-        public void DateOperations_CheckIfPeriodOverlapsBefore_ShouldReturnFalse()
+        [MemberData(nameof(DateParamOverlap.GetDatesNotOverlapping), MemberType = typeof(DateParamOverlap))]
+        public void DateOperations_CheckIfPeriodOverlapsBefore_ShouldReturnFalse(DateTime dateStart1,
+                                                                                 DateTime dateEnd1,
+                                                                                 DateTime dateStart2,
+                                                                                 DateTime dateEnd2)
         {
-            DateTime dateStart1 = new DateTime(2023, 09, 01, 13, 30, 0);
-            DateTime dateEnd1 = new DateTime(2023, 09, 01, 14, 15, 0);
-            DateTime dateStart2 = new DateTime(2023, 09, 01, 14, 30, 0);
-            DateTime dateEnd2 = new DateTime(2023, 09, 01, 15, 15, 0);
 
             var result = DateOperations.CheckIfDatesOverlaps(dateStart1, dateEnd1, dateStart2, dateEnd2);
 
@@ -52,14 +53,14 @@ namespace TestXUnit.Tests
         }
 
 
-        [Fact(DisplayName = "Período Não Sobrepoe Depois")]
+        [Theory(DisplayName = "Período Não Sobrepoe Depois")]
         [Trait("Categoria", "DateOperations Trait Testes")]
-        public void DateOperations_CheckIfPeriodOverlapsAfter_ShouldReturnFalse()
+        [MemberData(nameof(DateParamOverlap.GetDatesOverlapping_Between_EndDate2_And_StartDate1), MemberType = typeof(DateParamOverlap))]
+        public void DateOperations_CheckIfPeriodOverlapsAfter_ShouldReturnFalse(DateTime dateStart1,
+                                                                                DateTime dateEnd1,
+                                                                                DateTime dateStart2,
+                                                                                DateTime dateEnd2)
         {
-            DateTime dateStart1 = new DateTime(2023, 09, 01, 15, 30, 0);
-            DateTime dateEnd1 = new DateTime(2023, 09, 01, 16, 15, 0);
-            DateTime dateStart2 = new DateTime(2023, 09, 01, 14, 30, 0);
-            DateTime dateEnd2 = new DateTime(2023, 09, 01, 15, 15, 0);
 
             var result = DateOperations.CheckIfDatesOverlaps(dateStart1, dateEnd1, dateStart2, dateEnd2);
 
