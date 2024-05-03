@@ -77,7 +77,7 @@ namespace LessonsManagement.Business.Services
         {
             try
             {
-                FileImported fileImported = await _fileImportedRepository.GetById(id);
+                var fileImported = await _fileImportedRepository.GetById(id);
 
                 IEnumerable<LessonImported> listLessonImported = await _lessonImportedService.GetAllLessonsImportedByFile(id);
                 IEnumerable<Lesson> listLessons = await _lessonsService.GetLessonsByPeriod(fileImported.StartDate, fileImported.EndDate);
@@ -98,7 +98,7 @@ namespace LessonsManagement.Business.Services
                     ConciliateLessons(lessonByDay, lessonImportedByDay);
                 }
 
-                ConciliationList conciliation = new ConciliationList();
+                var conciliation = new ConciliationList();
                 conciliation.Match = lstMatch;
                 conciliation.Divergencies = Divergencies;
 
@@ -133,7 +133,7 @@ namespace LessonsManagement.Business.Services
 
         private Match ReturnMatchInstance(Lesson lesson, LessonImported lessonImported)
         {
-            Match match = new Match();
+            var match = new Match();
 
             match.LessonId = lesson.Id;
             match.LessonImportedId = lessonImported.Id;
@@ -164,19 +164,19 @@ namespace LessonsManagement.Business.Services
 
         public void SetDivengencies(Lesson lesson, LessonImported lessonImported)
         {
-            StudentDivergencies studenDivergencies = new StudentDivergencies(lesson, lessonImported);
+            var studenDivergencies = new StudentDivergencies(lesson, lessonImported);
             var resultStudent = studenDivergencies.SetDivergencies();
             if (resultStudent.TypeError != null) Divergencies.Add(resultStudent);
 
-            EventTypeDivergencies eventTypeDivergencies = new EventTypeDivergencies(lesson, lessonImported);
+            var eventTypeDivergencies = new EventTypeDivergencies(lesson, lessonImported);
             var resultEventType = eventTypeDivergencies.SetDivergencies();
             if (resultEventType.TypeError != null) Divergencies.Add(resultEventType);
 
-            ExecutionDateDivergencies executionDateDivergencies = new ExecutionDateDivergencies(lesson, lessonImported);
+            var executionDateDivergencies = new ExecutionDateDivergencies(lesson, lessonImported);
             var resultExecutionDate = executionDateDivergencies.SetDivergencies();
             if (resultExecutionDate.TypeError != null) Divergencies.Add(resultExecutionDate);
 
-            PriceDivergencies priceDivergencies = new PriceDivergencies(lesson, lessonImported);
+            var priceDivergencies = new PriceDivergencies(lesson, lessonImported);
             var resultPrice = priceDivergencies.SetDivergencies();
             if (resultPrice.TypeError != null) Divergencies.Add(resultPrice);
 
@@ -190,7 +190,7 @@ namespace LessonsManagement.Business.Services
                 string lessonValue, 
                 string lessonImportedValue )
         {
-            DivergencyRow divergency = new DivergencyRow();
+            var divergency = new DivergencyRow();
 
             divergency.Message = _type + " different for lesson id " +" (lesson: " + lesson.StudentId.ToString() + " imported: " + lessonImported.StudentId.ToString();
 

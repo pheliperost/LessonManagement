@@ -12,7 +12,7 @@ namespace LessonsManagement.Business.Conciliation.Divergencies
 
         public DivergencyRow SetDivergencies()
         {
-            DivergencyRow divergency = new DivergencyRow();
+            var divergency = new DivergencyRow();
 
             if (_lesson.EventType.Price != _lessonImported.Price) {
                 divergency.Message = "Execution Date: (" + _lesson.ExecutionDate.ToString() + ")" +
