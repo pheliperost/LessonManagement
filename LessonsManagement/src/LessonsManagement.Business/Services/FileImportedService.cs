@@ -73,13 +73,13 @@ namespace LessonsManagement.Business.Services
             await _fileImportedRepository.Remove(id);
         }
 
-        public async Task<ConciliationList> Conciliation(Guid id)
+        public async Task<ConciliationList> Conciliation(Guid fileImportedId)
         {
             try
             {
-                var fileImported = await _fileImportedRepository.GetById(id);
+                var fileImported = await _fileImportedRepository.GetById(fileImportedId);
 
-                IEnumerable<LessonImported> listLessonImported = await _lessonImportedService.GetAllLessonsImportedByFile(id);
+                IEnumerable<LessonImported> listLessonImported = await _lessonImportedService.GetAllLessonsImportedByFile(fileImportedId);
                 IEnumerable<Lesson> listLessons = await _lessonsService.GetLessonsByPeriod(fileImported.StartDate, fileImported.EndDate);
 
                 var datesLessonImported = listLessonImported.Select(p => p.ExecutionDate);
@@ -122,7 +122,6 @@ namespace LessonsManagement.Business.Services
                 {
                     if (CheckMatch(lesson, lessonImported))
                     {
-
                         lstMatch.Add(ReturnMatchInstance(lesson, lessonImported));
                     }
 
