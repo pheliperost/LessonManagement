@@ -1,4 +1,5 @@
-﻿using IntegrationTestsXUnitApp.Tests.Config;
+﻿using Bogus;
+using IntegrationTestsXUnitApp.Tests.Config;
 using LessonsManagement.App;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
@@ -16,6 +17,8 @@ namespace IntegrationTestsXUnitApp.Tests.Config
     public class IntegrationTestsFixture<TStartup> : IDisposable where TStartup : class
     {
         public string AntiForgeryFieldName = "__RequestVerificationToken";
+        public string UserEmail;
+        public string UserPassword;
 
         public readonly LessonsManagementAppFactory<TStartup> Factory;
         public HttpClient Client;
@@ -28,6 +31,13 @@ namespace IntegrationTestsXUnitApp.Tests.Config
 
             Factory = new LessonsManagementAppFactory<TStartup>();
             Client = Factory.CreateClient();
+        }
+
+        public void GeneratePassword()
+        {
+            var faker = new Faker("pt_BR");
+            UserEmail = faker.Internet.Email().ToLower();
+            UserPassword = faker.Internet.Password(8, false, "", "@1Ab_");
         }
 
         public string GetAntiForgeryToken(string htmlBody)

@@ -28,14 +28,14 @@ namespace IntegrationTestsXUnitApp.Tests
 
             var antiForgeryToken = _testsFixture.GetAntiForgeryToken(await initialResponse.Content.ReadAsStringAsync());
 
-            var email = "teste@teste.com";
+            _testsFixture.GeneratePassword();
 
             var formData = new Dictionary<string, string>
             {
                 { _testsFixture.AntiForgeryFieldName, antiForgeryToken },
-                {"Input.Email",email},
-                {"Input.Password","@_Abc1teste"},
-                {"Input.ConfirmPassword","@_Abc1teste"}
+                {"Input.Email",_testsFixture.UserEmail},
+                {"Input.Password",_testsFixture.UserPassword},
+                {"Input.ConfirmPassword",_testsFixture.UserPassword}
             };
 
             var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Identity/Account/Register")
@@ -50,7 +50,7 @@ namespace IntegrationTestsXUnitApp.Tests
             var responseString = await postResponse.Content.ReadAsStringAsync();
 
             postResponse.EnsureSuccessStatusCode();
-            Assert.Contains($"Hello {email}!", responseString);
+            Assert.Contains($"Hello {_testsFixture.UserEmail}!", responseString);
         }
     }
 }
