@@ -40,6 +40,12 @@ namespace IntegrationTestsXUnitApp.Tests.Config
             UserPassword = faker.Internet.Password(8, false, "", "@1Ab_");
         }
 
+        public string GenerateInvalidEmail(int qtdChar)
+        {
+            var faker = new Faker("pt_BR");
+            return faker.Internet.Random.AlphaNumeric(qtdChar);
+        }
+
         public string GetAntiForgeryToken(string htmlBody)
         {
             var requestVerificationTokenMatch =
