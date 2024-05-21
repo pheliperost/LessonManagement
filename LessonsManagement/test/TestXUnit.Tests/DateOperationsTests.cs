@@ -67,5 +67,47 @@ namespace TestXUnit.Tests
             Assert.False(result);
 
         }
+
+        [Theory(DisplayName = "Successful Convert DateTime String to Date")]
+        [Trait("Categoria", "ConvertDateStringToDateTime Traits Tests")]
+        [InlineData("09 de Janeiro de 2024")]
+        [InlineData("26 de Janeiro de 2024")]
+        [InlineData("28 de Fevereiro de 2024")]
+        public void ConvertDateStringToDateTime_SendAValidDateTimeStringFormat_ShouldReturnADateTimeValue(String dateTimeP)
+        {
+            var result = DateOperations.ConvertDateStringToDateTime(dateTimeP);
+            Assert.IsType<DateTime>(result);
+
+        }
+
+        [Theory(DisplayName = "Unsuccessful Convert DateTime String Format to Date")]
+        [Trait("Categoria", "ConvertDateStringToDateTime Traits Tests")]
+        [InlineData("31 de Fevereiro de 2024")]
+        [InlineData("00 de Janeiro de 2024")]
+        [InlineData("33 de dezembro de 2024")]
+        [InlineData("33 de dezembro de 0000")]
+        public void ConvertDateStringToDateTime_SendAInvalidDateTimeStringFormat_ShouldReturnADateTimeValue(String dateTimeP)
+        {
+            var exception =
+            Assert.Throws<ArgumentOutOfRangeException>(() => DateOperations.ConvertDateStringToDateTime(dateTimeP));
+
+            Assert.Equal("Year, Month, and Day parameters describe an un-representable DateTime.", exception.Message);
+
+        }
+
+        [Theory(DisplayName = "Unsuccessful Convert DateTime String Format to Date")]
+        [Trait("Categoria", "ConvertDateStringToDateTime Traits Tests")]
+        [InlineData("26/01/2024")]
+        [InlineData("01/01/2024")]
+        [InlineData("01/30/2024")]
+        [InlineData("2024/01/01")]
+        public void ConvertDateStringToDateTime_SendAInvalidDateTimeStringFormat_ShouldReturnAException(String dateTimeP)
+        {
+            var exception =
+            Assert.Throws<IndexOutOfRangeException>(() => DateOperations.ConvertDateStringToDateTime(dateTimeP));
+
+            Assert.Equal("Index was outside the bounds of the array.", exception.Message);
+
+        }
     }
 }
