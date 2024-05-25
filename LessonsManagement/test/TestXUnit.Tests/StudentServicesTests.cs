@@ -1,4 +1,7 @@
-﻿using LessonsManagement.Business.Interfaces;
+﻿using Bogus;
+using FluentValidation;
+using LessonsManagement.Business.Interfaces;
+using LessonsManagement.Business.Models.Validations;
 using LessonsManagement.Business.Notifications;
 using LessonsManagement.Business.Services;
 using Moq;
@@ -22,7 +25,7 @@ namespace TestXUnitBusiness.Tests
             _studentFixtures = studentFixtures;
         }
 
-        [Fact(DisplayName = "Adding new Student Should Return Success.")]
+        [Fact(DisplayName = "Adding New Student Should Return Success.")]
         [Trait("Categoria", "Student Service")]
         public async Task StudentServices_AddNewStudent_ShouldReturnSuccess()
         {
@@ -40,7 +43,7 @@ namespace TestXUnitBusiness.Tests
             mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Never);
         }
 
-        [Fact(DisplayName = "Adding new Invalid Student Should Return Error.")]
+        [Fact(DisplayName = "Adding New Invalid Student Should Return Error.")]
         [Trait("Categoria", "Student Service")]
         public async Task StudentServices_AddNewInvalidStudent_ShouldReturnError()
         {
@@ -55,7 +58,7 @@ namespace TestXUnitBusiness.Tests
             await studentService.Add(student);
 
             // Assert
-            mocker.GetMock<IStudentRepository>().Verify(r => r.Add(student), Times.Once);
+            mocker.GetMock<IStudentRepository>().Verify(r => r.Add(student), Times.Never);
             mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Exactly(2));
         }
     }

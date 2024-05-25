@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="bogus" Version="20.0.2" />
-    <PackageReference Include="fluentvalidation" Version="11.9.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Moq" Version="4.13.0" />
     <PackageReference Include="Moq.AutoMock" Version="1.2.0.120" />
