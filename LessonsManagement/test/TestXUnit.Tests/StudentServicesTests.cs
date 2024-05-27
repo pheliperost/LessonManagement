@@ -20,12 +20,12 @@ namespace TestXUnitBusiness.Tests
     {
         readonly StudentFixtures _studentFixtures;
 
-        public StudentServicesTests( StudentFixtures studentFixtures)
+        public StudentServicesTests(StudentFixtures studentFixtures)
         {
             _studentFixtures = studentFixtures;
         }
 
-        [Fact(DisplayName = "Adding New Student Should Return Success.")]
+        [Fact(DisplayName = "Adding a New Valid Student Should Return Success.")]
         [Trait("Categoria", "Student Service")]
         public async Task StudentServices_AddNewStudent_ShouldReturnSuccess()
         {
@@ -43,7 +43,7 @@ namespace TestXUnitBusiness.Tests
             mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Never);
         }
 
-        [Fact(DisplayName = "Adding New Invalid Student Should Return Error.")]
+        [Fact(DisplayName = "Adding a New Invalid Student Should Return Error.")]
         [Trait("Categoria", "Student Service")]
         public async Task StudentServices_AddNewInvalidStudent_ShouldReturnError()
         {
