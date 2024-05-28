@@ -16,10 +16,12 @@ namespace TestXUnitBusiness.Tests
     public class EventTypeServicesTests
     {
         readonly EventTypeFixtures _eventTypeFixtures;
+        readonly EventTypeService _eventTypeService;
 
         public  EventTypeServicesTests(EventTypeFixtures eventTypeFixtures)
         {
             _eventTypeFixtures = eventTypeFixtures;
+            _eventTypeService = _eventTypeFixtures.GetService();
         }
 
         [Fact(DisplayName = "Adding New Valid Event Type Should Return Success.")]
@@ -28,10 +30,9 @@ namespace TestXUnitBusiness.Tests
         {
             // Arrange
             var eventType = _eventTypeFixtures.GenerateValidEventType();
-            var eventTypeService = _eventTypeFixtures.GetService();
 
             // Act
-            await eventTypeService.Add(eventType);
+            await _eventTypeService.Add(eventType);
 
             // Assert
             _eventTypeFixtures.Mocker.GetMock<IEventTypeRepository>().Verify(r => r.Add(eventType), Times.Once);
@@ -45,10 +46,9 @@ namespace TestXUnitBusiness.Tests
         {
             // Arrange
             var eventType = _eventTypeFixtures.GenerateInvalidEventType();
-            var eventTypeService = _eventTypeFixtures.GetService();
 
             // Act
-            await eventTypeService.Add(eventType);
+            await _eventTypeService.Add(eventType);
 
             // Assert
             _eventTypeFixtures.Mocker.GetMock<IEventTypeRepository>().Verify(r => r.Add(eventType), Times.Never);
