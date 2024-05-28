@@ -28,16 +28,14 @@ namespace TestXUnitBusiness.Tests
         {
             // Arrange
             var eventType = _eventTypeFixtures.GenerateValidEventType();
-            var mocker = new AutoMocker();
-
-            var eventTypeService = mocker.CreateInstance<EventTypeService>();
+            var eventTypeService = _eventTypeFixtures.GetService();
 
             // Act
             await eventTypeService.Add(eventType);
 
             // Assert
-            mocker.GetMock<IEventTypeRepository>().Verify(r => r.Add(eventType), Times.Once);
-            mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Never);
+            _eventTypeFixtures.Mocker.GetMock<IEventTypeRepository>().Verify(r => r.Add(eventType), Times.Once);
+            _eventTypeFixtures.Mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Never);
 
         }
 
@@ -47,16 +45,14 @@ namespace TestXUnitBusiness.Tests
         {
             // Arrange
             var eventType = _eventTypeFixtures.GenerateInvalidEventType();
-            var mocker = new AutoMocker();
-
-            var eventTypeService = mocker.CreateInstance<EventTypeService>();
+            var eventTypeService = _eventTypeFixtures.GetService();
 
             // Act
             await eventTypeService.Add(eventType);
 
             // Assert
-            mocker.GetMock<IEventTypeRepository>().Verify(r => r.Add(eventType), Times.Never);
-            mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Exactly(4));
+            _eventTypeFixtures.Mocker.GetMock<IEventTypeRepository>().Verify(r => r.Add(eventType), Times.Never);
+            _eventTypeFixtures.Mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Exactly(4));
 
         }
     }

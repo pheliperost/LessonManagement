@@ -1,5 +1,7 @@
 ﻿using Bogus;
 using LessonsManagement.Business.Models;
+using LessonsManagement.Business.Services;
+using Moq.AutoMock;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +15,8 @@ namespace TestXUnitBusiness.Tests.Fixtures
 
     public class EventTypeFixtures : IDisposable
     {
+        public EventTypeService  _eventTypeService;
+        public AutoMocker Mocker;
         public EventType GenerateValidEventType()
         {
             var eventType = new Faker<EventType>()
@@ -26,6 +30,14 @@ namespace TestXUnitBusiness.Tests.Fixtures
         public EventType GenerateInvalidEventType()
         {
             return new Faker<EventType>();
+        }
+
+        public EventTypeService GetService()
+        {
+            Mocker = new AutoMocker();
+            _eventTypeService = Mocker.CreateInstance<EventTypeService>();
+
+            return _eventTypeService;
         }
 
         public void Dispose()
