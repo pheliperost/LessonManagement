@@ -19,10 +19,13 @@ namespace TestXUnitBusiness.Tests
     public class StudentServicesTests
     {
         readonly StudentFixtures _studentFixtures;
+        readonly StudentsService _studentsService;
 
         public StudentServicesTests(StudentFixtures studentFixtures)
         {
             _studentFixtures = studentFixtures;
+            _studentsService = _studentFixtures.GetService();
+
         }
 
         [Fact(DisplayName = "Adding a New Valid Student Should Return Success.")]
@@ -31,16 +34,13 @@ namespace TestXUnitBusiness.Tests
         {
             // Arrange
             var student = _studentFixtures.GenerateValidStudent();
-            var mocker = new AutoMocker();
-
-            var studentService = mocker.CreateInstance<StudentsService>();
 
             // Act
-            await studentService.Add(student);
+            await _studentsService.Add(student);
 
             // Assert
-            mocker.GetMock<IStudentRepository>().Verify(r => r.Add(student), Times.Once);
-            mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Never);
+            _studentFixtures.Mocker.GetMock<IStudentRepository>().Verify(r => r.Add(student), Times.Once);
+            _studentFixtures.Mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Never);
         }
 
         [Fact(DisplayName = "Adding a New Invalid Student Should Return Error.")]
@@ -49,17 +49,14 @@ namespace TestXUnitBusiness.Tests
         {
             // Arrange
             var student = _studentFixtures.GenerateInvalidStudent();
-            var mocker = new AutoMocker();
-
-            var studentService = mocker.CreateInstance<StudentsService>();
             var notifyer = new Mock<INotifyer>();
 
             // Act
-            await studentService.Add(student);
+            await _studentsService.Add(student);
 
             // Assert
-            mocker.GetMock<IStudentRepository>().Verify(r => r.Add(student), Times.Never);
-            mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Exactly(2));
+            _studentFixtures.Mocker.GetMock<IStudentRepository>().Verify(r => r.Add(student), Times.Never);
+            _studentFixtures.Mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Exactly(2));
         }
     }
 }
