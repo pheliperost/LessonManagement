@@ -4,6 +4,7 @@ using LessonsManagement.Business.Services;
 using Moq.AutoMock;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -30,6 +31,27 @@ namespace TestXUnitBusiness.Tests.Fixtures
         public EventType GenerateInvalidEventType()
         {
             return new Faker<EventType>();
+        }
+
+        public EventType GenerateEmptyEventTypeWithEmptyLesson()
+        {
+            IEnumerable<Lesson> emptyLesson = Enumerable.Empty<Lesson>();
+            var eventType = new Faker<EventType>()
+                .RuleFor(c => c.Lessons, f => emptyLesson);
+
+            return eventType;
+        }
+
+        public EventType GenerateEmptyEventTypeWithLesson()
+        {
+            var lesson = new Faker<Lesson>()
+                .RuleFor(c => c.ExecutionDate, f => f.Date.Recent(2))
+                .RuleFor(c => c.Notes, f => f.Lorem.Paragraphs(2));
+
+            var eventType = new Faker<EventType>()
+                .RuleFor(c => c.Lessons, f => lesson.Generate(1));
+
+            return eventType;
         }
 
         public EventTypeService GetService()
