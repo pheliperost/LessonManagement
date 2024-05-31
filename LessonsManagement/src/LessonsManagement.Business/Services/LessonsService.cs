@@ -32,6 +32,14 @@ namespace LessonsManagement.Business.Services
 
         public async Task Delete(Guid id)
         {
+            var lesson = await _lessonRepository.GetById(id);
+
+            if (lesson == null)
+            {
+                Notify("Lesson not found.");
+                return;
+            }
+
             await _lessonRepository.Remove(id);
         }
 
