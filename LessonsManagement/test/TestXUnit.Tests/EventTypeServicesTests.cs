@@ -27,7 +27,7 @@ namespace TestXUnitBusiness.Tests
         }
 
         [Fact(DisplayName = "Adding New Valid Event Type Should Return Success.")]
-        [Trait("Categoria", "Event Type Service")]
+        [Trait("Category", "Event Type Service")]
         public async Task EventTypeServices_AddNewEventType_ShouldReturnSuccess()
         {
             // Arrange
@@ -43,7 +43,7 @@ namespace TestXUnitBusiness.Tests
         }
 
         [Fact(DisplayName = "Adding New Invalid Event Type Should Return Error.")]
-        [Trait("Categoria", "Event Type Service")]
+        [Trait("Category", "Event Type Service")]
         public async Task EventTypeServices_AddNewInvalidEventType_ShouldReturnError()
         {
             // Arrange
@@ -60,7 +60,7 @@ namespace TestXUnitBusiness.Tests
 
 
         [Fact(DisplayName = "Updating Valid Event Type Should Return Success.")]
-        [Trait("Categoria", "Event Type Service")]
+        [Trait("Category", "Event Type Service")]
         public async Task EventTypeServices_UpdateValidEventType_ShouldReturnSuccess()
         {
             // Arrange
@@ -75,7 +75,7 @@ namespace TestXUnitBusiness.Tests
         }
 
         [Fact(DisplayName = "Updating Invalid Event Type Should Return Error.")]
-        [Trait("Categoria", "Event Type Service")]
+        [Trait("Category", "Event Type Service")]
         public async Task EventTypeServices_UpdateInvalidEventType_ShouldReturnError()
         {
             // Arrange
@@ -90,7 +90,7 @@ namespace TestXUnitBusiness.Tests
         }
 
         [Fact(DisplayName = "Deleting Valid Event Type Should Return Success.")]
-        [Trait("Categoria", "Event Type Service")]
+        [Trait("Category", "Event Type Service")]
         public async Task EventTypeServices_DeleteValidEventType_ShouldReturnSuccess()
         {
             // Arrange
@@ -113,7 +113,7 @@ namespace TestXUnitBusiness.Tests
 
 
         [Fact(DisplayName = "Deleting Valid Event Type With Lesson Should Return Error.")]
-        [Trait("Categoria", "Event Type Service")]
+        [Trait("Category", "Event Type Service")]
         public async Task EventTypeServices_DeleteValidEventTypeWithLesson_ShouldReturnError()
         {
             // Arrange

@@ -8,7 +8,7 @@ namespace TestXUnit.Tests
     public class DateOperationsTests
     {
         [Theory(DisplayName = "Período Sobrepoe Antes")]
-        [Trait("Categoria", "DateOperations Trait Testes")]
+        [Trait("Category", "DateOperations Trait Testes")]
         [MemberData(nameof(DateParamOverlap.GetDatesOverlapping_Between_StartDate2_And_EndDate1), MemberType = typeof(DateParamOverlap))]
         public void DateOperations_CheckIfPeriodOverlapsBefore_ShouldReturnTrue(DateTime dateStart1,
                                                                                 DateTime dateEnd1,
@@ -23,7 +23,7 @@ namespace TestXUnit.Tests
         }
 
         [Theory(DisplayName = "Período Sobrepoe Depois")]
-        [Trait("Categoria", "DateOperations Trait Testes")]
+        [Trait("Category", "DateOperations Trait Testes")]
         [MemberData(nameof(DateParamOverlap.GetDatesOverlapping_Between_EndDate1_And_StartDate2), MemberType = typeof(DateParamOverlap))]
         public void DateOperations_CheckIfPeriodOverlapsAfter_ShouldReturnTrue(DateTime dateStart1,
                                                                                DateTime dateEnd1,
@@ -38,7 +38,7 @@ namespace TestXUnit.Tests
         }
 
         [Theory(DisplayName = "Período Não Sobrepoe Antes")]
-        [Trait("Categoria", "DateOperations Trait Testes")]
+        [Trait("Category", "DateOperations Trait Testes")]
         [MemberData(nameof(DateParamOverlap.GetDatesNotOverlapping), MemberType = typeof(DateParamOverlap))]
         public void DateOperations_CheckIfPeriodOverlapsBefore_ShouldReturnFalse(DateTime dateStart1,
                                                                                  DateTime dateEnd1,
@@ -54,7 +54,7 @@ namespace TestXUnit.Tests
 
 
         [Theory(DisplayName = "Período Não Sobrepoe Depois")]
-        [Trait("Categoria", "DateOperations Trait Testes")]
+        [Trait("Category", "DateOperations Trait Testes")]
         [MemberData(nameof(DateParamOverlap.GetDatesOverlapping_Between_EndDate2_And_StartDate1), MemberType = typeof(DateParamOverlap))]
         public void DateOperations_CheckIfPeriodOverlapsAfter_ShouldReturnFalse(DateTime dateStart1,
                                                                                 DateTime dateEnd1,
@@ -69,7 +69,7 @@ namespace TestXUnit.Tests
         }
 
         [Theory(DisplayName = "Successful Convert DateTime String to Date")]
-        [Trait("Categoria", "ConvertDateStringToDateTime Traits Tests")]
+        [Trait("Category", "ConvertDateStringToDateTime Traits Tests")]
         [InlineData("09 de Janeiro de 2024")]
         [InlineData("26 de Janeiro de 2024")]
         [InlineData("28 de Fevereiro de 2024")]
@@ -81,7 +81,7 @@ namespace TestXUnit.Tests
         }
 
         [Theory(DisplayName = "Unsuccessful Convert DateTime String Format to Date")]
-        [Trait("Categoria", "ConvertDateStringToDateTime Traits Tests")]
+        [Trait("Category", "ConvertDateStringToDateTime Traits Tests")]
         [InlineData("31 de Fevereiro de 2024")]
         [InlineData("00 de Janeiro de 2024")]
         [InlineData("33 de dezembro de 2024")]
@@ -96,7 +96,7 @@ namespace TestXUnit.Tests
         }
 
         [Theory(DisplayName = "Unsuccessful Convert DateTime String Format to Date")]
-        [Trait("Categoria", "ConvertDateStringToDateTime Traits Tests")]
+        [Trait("Category", "ConvertDateStringToDateTime Traits Tests")]
         [InlineData("26/01/2024")]
         [InlineData("01/01/2024")]
         [InlineData("01/30/2024")]

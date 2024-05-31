@@ -29,7 +29,7 @@ namespace TestXUnitBusiness.Tests
         }
 
         [Fact(DisplayName = "Adding a New Valid Student Should Return Success.")]
-        [Trait("Categoria", "Student Service")]
+        [Trait("Category", "Student Service")]
         public async Task StudentServices_AddNewStudent_ShouldReturnSuccess()
         {
             // Arrange
@@ -44,7 +44,7 @@ namespace TestXUnitBusiness.Tests
         }
 
         [Fact(DisplayName = "Adding a New Invalid Student Should Return Error.")]
-        [Trait("Categoria", "Student Service")]
+        [Trait("Category", "Student Service")]
         public async Task StudentServices_AddNewInvalidStudent_ShouldReturnError()
         {
             // Arrange
