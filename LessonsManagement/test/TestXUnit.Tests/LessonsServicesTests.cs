@@ -128,6 +128,9 @@ namespace TestXUnitBusiness.Tests
             _lessonsFixtures.Mocker.GetMock<ILessonRepository>().Setup(c => c.GetLessonsByExecutedDay(lesson.ExecutionDate.Date))
                 .Returns(Task.FromResult(lstLessonEmpty));
 
+            _lessonsFixtures.Mocker.GetMock<ILessonRepository>().Setup(c => c.GetById(lesson.Id))
+                .Returns(Task.FromResult(lesson));
+
             await _lessonsService.Add(lesson);
 
             _lessonsFixtures.Mocker.GetMock<ILessonRepository>().Verify(r => r.Add(lesson), Times.Once);

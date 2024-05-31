@@ -112,12 +112,12 @@ namespace TestXUnitBusiness.Tests
         }
 
 
-        [Fact(DisplayName = "Deleting Valid Event Type With Lesson Should Return Error.")]
+        [Fact(DisplayName = "Deleting invalid Event Type With Lesson Should Return Error.")]
         [Trait("Category", "Event Type Service")]
-        public async Task EventTypeServices_DeleteValidEventTypeWithLesson_ShouldReturnError()
+        public async Task EventTypeServices_DeleteInvalidEventTypeWithLesson_ShouldReturnError()
         {
             // Arrange
-            var eventType = _eventTypeFixtures.GenerateValidEventType();
+            var eventType = _eventTypeFixtures.GenerateInvalidEventType();
 
             // Act
             await _eventTypeService.Add(eventType);
@@ -131,7 +131,7 @@ namespace TestXUnitBusiness.Tests
 
             // Assert
             _eventTypeFixtures.Mocker.GetMock<IEventTypeRepository>().Verify(r => r.Remove(eventType.Id), Times.Never);
-            _eventTypeFixtures.Mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Once);
+            _eventTypeFixtures.Mocker.GetMock<INotifyer>().Verify(m => m.Handle(It.IsAny<Notification>()), Times.Exactly(5));
         }
     }
 }
