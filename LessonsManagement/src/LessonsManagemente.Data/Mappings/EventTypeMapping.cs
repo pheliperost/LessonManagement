@@ -8,22 +8,22 @@ namespace LessonsManagement.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<EventType> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(pk => pk.Id);
 
             builder.Property(p => p.EventTypeName)
                 .IsRequired()
-                .HasColumnType("varchar(50)");
+                .HasColumnType(DataBaseTypes.Varchar());
 
             builder.Property(p => p.Price)
                  .IsRequired()
-                 .HasColumnType("decimal");
+                 .HasColumnType(DataBaseTypes.Decimal());
 
             builder.Property(p => p.Notes)
-                .HasColumnType("varchar(500)");
+                .HasColumnType(DataBaseTypes.Varchar(500));
 
             builder.Property(p => p.DurationTimeInMinutes)
                 .IsRequired()
-                .HasColumnType("int");
+                .HasColumnType(DataBaseTypes.Int());
 
             //has many
             builder.HasMany(p => p.Lessons)

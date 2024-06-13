@@ -8,15 +8,15 @@ namespace LessonsManagement.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<LessonImported> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(pk => pk.Id);
 
             builder.Property(p => p.ExecutionDate)
                 .IsRequired()
-                .HasColumnType("datetime");
+                .HasColumnType(DataBaseTypes.DateTime());
 
             builder.Property(p => p.Price)
                .IsRequired()
-               .HasColumnType("decimal");
+               .HasColumnType(DataBaseTypes.Decimal());
 
             builder.ToTable("LessonImported");
         }

@@ -1,4 +1,5 @@
 ﻿using LessonsManagement.Business.Conciliation;
+using LessonsManagement.Business.Conciliation.Divergencies;
 using LessonsManagement.Business.FileImporter;
 using LessonsManagement.Business.Interfaces;
 using LessonsManagement.Business.Models;
@@ -20,7 +21,7 @@ namespace LessonsManagement.Business.Services
         private List<Match> lstMatch;
         private List<Lesson> lstOnlyLesson;
         private List<Lesson> lstOnlyLessonImported;
-        private List<Divergency> Divergencies;
+        private List<DivergencyRow> Divergencies;
         private readonly INotifyer notifyer;
 
         public FileImportedService(IFileImportedRepository fileImportedRepository,
@@ -39,7 +40,7 @@ namespace LessonsManagement.Business.Services
             lstMatch = new List<Match>();
             lstOnlyLesson = new List<Lesson>();
             lstOnlyLessonImported = new List<Lesson>();
-            Divergencies = new List<Divergency>();
+            Divergencies = new List<DivergencyRow>();
         }
 
         public async Task Add(FileImported fileImported)
@@ -72,13 +73,13 @@ namespace LessonsManagement.Business.Services
             await _fileImportedRepository.Remove(id);
         }
 
-        public async Task<ConciliationList> Conciliation(Guid id)
+        public async Task<ConciliationList> Conciliation(Guid fileImportedId)
         {
             try
             {
-                FileImported fileImported = await _fileImportedRepository.GetById(id);
+                var fileImported = await _fileImportedRepository.GetById(fileImportedId);
 
-                IEnumerable<LessonImported> listLessonImported = await _lessonImportedService.GetAllLessonsImportedByFile(id);
+                IEnumerable<LessonImported> listLessonImported = await _lessonImportedService.GetAllLessonsImportedByFile(fileImportedId);
                 IEnumerable<Lesson> listLessons = await _lessonsService.GetLessonsByPeriod(fileImported.StartDate, fileImported.EndDate);
 
                 var datesLessonImported = listLessonImported.Select(p => p.ExecutionDate);
@@ -97,7 +98,7 @@ namespace LessonsManagement.Business.Services
                     ConciliateLessons(lessonByDay, lessonImportedByDay);
                 }
 
-                ConciliationList conciliation = new ConciliationList();
+                var conciliation = new ConciliationList();
                 conciliation.Match = lstMatch;
                 conciliation.Divergencies = Divergencies;
 
@@ -121,7 +122,6 @@ namespace LessonsManagement.Business.Services
                 {
                     if (CheckMatch(lesson, lessonImported))
                     {
-
                         lstMatch.Add(ReturnMatchInstance(lesson, lessonImported));
                     }
 
@@ -132,7 +132,7 @@ namespace LessonsManagement.Business.Services
 
         private Match ReturnMatchInstance(Lesson lesson, LessonImported lessonImported)
         {
-            Match match = new Match();
+            var match = new Match();
 
             match.LessonId = lesson.Id;
             match.LessonImportedId = lessonImported.Id;
@@ -163,28 +163,33 @@ namespace LessonsManagement.Business.Services
 
         public void SetDivengencies(Lesson lesson, LessonImported lessonImported)
         {
-            if (lesson.StudentId != lessonImported.StudentId)
-                Divergencies.Add(ReturnDivercencyInstace("Student Id",lesson,lessonImported, lesson.StudentId.ToString(), lessonImported.StudentId.ToString()));
+            var studenDivergencies = new StudentDivergencies(lesson, lessonImported);
+            var resultStudent = studenDivergencies.SetDivergencies();
+            if (resultStudent.TypeError != null) Divergencies.Add(resultStudent);
 
-            if(lesson.ExecutionDate != lessonImported.ExecutionDate)
-                Divergencies.Add(ReturnDivercencyInstace("Execution Date", lesson, lessonImported, lesson.ExecutionDate.ToString(), lessonImported.ExecutionDate.ToString()));
+            var eventTypeDivergencies = new EventTypeDivergencies(lesson, lessonImported);
+            var resultEventType = eventTypeDivergencies.SetDivergencies();
+            if (resultEventType.TypeError != null) Divergencies.Add(resultEventType);
 
-            if (lesson.EventTypeId != lessonImported.EventTypeId)
-                Divergencies.Add(ReturnDivercencyInstace("Event Type ", lesson, lessonImported, lesson.EventTypeId.ToString(), lessonImported.EventTypeId.ToString()));
+            var executionDateDivergencies = new ExecutionDateDivergencies(lesson, lessonImported);
+            var resultExecutionDate = executionDateDivergencies.SetDivergencies();
+            if (resultExecutionDate.TypeError != null) Divergencies.Add(resultExecutionDate);
 
-            if (lesson.EventType.Price != lessonImported.Price)
-                Divergencies.Add(ReturnDivercencyInstace("Price ", lesson, lessonImported, lesson.EventType.Price.ToString(), lessonImported.Price.ToString()));
+            var priceDivergencies = new PriceDivergencies(lesson, lessonImported);
+            var resultPrice = priceDivergencies.SetDivergencies();
+            if (resultPrice.TypeError != null) Divergencies.Add(resultPrice);
+
 
         }
 
-        public Divergency ReturnDivercencyInstace(
+        public DivergencyRow ReturnDivercencyInstace(
                 string _type,
                 Lesson lesson, 
                 LessonImported lessonImported, 
                 string lessonValue, 
                 string lessonImportedValue )
         {
-            Divergency divergency = new Divergency();
+            var divergency = new DivergencyRow();
 
             divergency.Message = _type + " different for lesson id " +" (lesson: " + lesson.StudentId.ToString() + " imported: " + lessonImported.StudentId.ToString();
 

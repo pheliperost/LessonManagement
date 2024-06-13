@@ -8,15 +8,15 @@ namespace LessonsManagement.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Lesson> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(pk => pk.Id);
 
             builder.Property(p => p.ExecutionDate)
                 .IsRequired()
-                .HasColumnType("datetime");
+                .HasColumnType(DataBaseTypes.DateTime());
 
             builder.Property(p => p.Notes)
                 .IsRequired()
-                .HasColumnType("varchar(500)");
+                .HasColumnType(DataBaseTypes.Varchar(500));
 
             builder.ToTable("Lesson");
 
