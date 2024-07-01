@@ -2,6 +2,7 @@
 using LessonsManagement.App.ViewModels;
 using LessonsManagement.Business.Interfaces;
 using LessonsManagement.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LessonsManagement.App.Controllers
 {
+    [Authorize]
     public class LessonsImportedController : Controller
     {
         private readonly ILessonImportedRepository _LessonImportedRepository;
@@ -80,8 +82,6 @@ namespace LessonsManagement.App.Controllers
 
             var lesson = _mapper.Map<LessonImported>(lessonImportedViewModel);
             await _LessonImportedRepository.Update(lesson);
-
-            //if (!ValidOperation()) return View(fileImportedViewModel);
 
             return RedirectToAction("Index");
         }

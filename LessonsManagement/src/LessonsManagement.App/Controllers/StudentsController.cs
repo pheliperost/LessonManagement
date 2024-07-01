@@ -31,14 +31,12 @@ namespace LessonsManagement.App.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
         [Route("list")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<StudentViewModel>>(await _StudentRepository.GetAll()));
         }
 
-        [AllowAnonymous]
         [Route("details/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {

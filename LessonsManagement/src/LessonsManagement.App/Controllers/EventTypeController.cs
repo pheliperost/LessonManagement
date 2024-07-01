@@ -29,14 +29,12 @@ namespace LessonsManagement.App.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
         [Route("list-event-type")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<EventTypeViewModel>>(await _EventTypeRepository.GetAll()));
         }
 
-        [AllowAnonymous]
         [Route("details-event-type/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace LessonsManagement.App.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         private readonly IStudentRepository _StudentRepository;
@@ -37,9 +38,6 @@ namespace LessonsManagement.App.Controllers
             return View(_mapper.Map<IEnumerable<LessonViewModel>>(await _LessonRepository.GetLessonWithDetailsOrdernedByDate()));
         }
 
-        //[AllowAnonymous]
-        //[Route("GetEventsAsync")]
-        [HttpGet]
         public async Task<IActionResult> GetEventsAsync()
         {
             var events = await _LessonsService.GetLessonToPopulateCalendar();

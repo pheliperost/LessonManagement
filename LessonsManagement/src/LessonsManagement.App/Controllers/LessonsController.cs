@@ -36,7 +36,6 @@ namespace LessonsManagement.App.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
         [Route("list-lessons")]
         public async Task<IActionResult> Index(string searchString)
         {
@@ -53,7 +52,6 @@ namespace LessonsManagement.App.Controllers
             return result;
         }
 
-        [AllowAnonymous]
         [Route("details-lessons/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -67,7 +65,6 @@ namespace LessonsManagement.App.Controllers
             return View(lessonViewModel);
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> ModalDetails(Guid id)
         {
             var lessonViewModel = await GetLessonWithStudentAndEventType(id);
