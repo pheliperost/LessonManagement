@@ -31,7 +31,6 @@
             contentHeight: 400,
             defaultDate: new Date(),
             timeFormat: 'h(:mm)a',
-            height: 400,
             header: {
                 left: 'prev,next today',
                 center: 'title',

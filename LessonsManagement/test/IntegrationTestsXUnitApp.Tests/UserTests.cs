@@ -50,7 +50,7 @@ namespace IntegrationTestsXUnitApp.Tests
             var responseString = await postResponse.Content.ReadAsStringAsync();
 
             postResponse.EnsureSuccessStatusCode();
-            Assert.Contains($"Hello {_testsFixture.UserEmail}!", responseString);
+            Assert.Contains($"Hello {_testsFixture.UserEmail.Split('@')[0]}!", responseString);
         }
 
         [Fact(DisplayName = "Execute the user registration with mismatch password returning error.")]
