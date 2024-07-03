@@ -102,7 +102,7 @@ namespace TestXUnitBusiness.Tests
             // Act
 
             _eventTypeFixtures.Mocker.GetMock<IEventTypeRepository>().Setup(c => c.GetLessonsByEventType(eventType.Id))
-               .Returns(Task.FromResult(_eventTypeFixtures.GenerateEmptyEventTypeWithEmptyLesson()));
+               .Returns(Task.FromResult(eventType));
 
             await _eventTypeService.Delete(eventType.Id);
 

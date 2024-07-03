@@ -28,7 +28,7 @@ namespace LessonsManagement.Business.Services
 
         public async Task Delete(Guid id)
         {
-            if (_eventTypeRepository.GetLessonsByEventType(id).Result.Lessons.Any())
+            if (_eventTypeRepository.GetLessonsByEventType(id).Result?.Lessons?.Any() == true)
             {
                 Notify("Exclusion not allowed! There is lessons assigned to this student.");
 
