@@ -159,6 +159,7 @@ dotnet test
 * Implement a mobile offline version of the application to ensure usability without internet connectivity.
 * Integrate a WebAPI version (Currently in Development) to extend functionality and facilitate integration with other systems.
 * Design and implement a streamlined, user-friendly interface to enhance ease of use and accessibility.
+* Migrate to .NET 8.
 
 ### Conciliation Report
 * Allow exporting the result to Excel format.
