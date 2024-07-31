@@ -53,7 +53,7 @@ using the libraries:
 * AutoMoq
 * Fluent Assertions
 * EFCore.BulkExtensions
-* EntityFrameworkCre
+* EntityFramework
 
 The Language used was **C# version 7.3**.
 
