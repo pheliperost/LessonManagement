@@ -54,9 +54,9 @@ textarea {
 }
 
 
-/* Navigation Menu - Background */
+/*Navigation Menu - Background*/ 
 .navigation {
-    /* critical sizing and position styles */
+    /*critical sizing and position styles*/
     width: 100%;
     height: 100%;
     position: fixed;
@@ -65,21 +65,21 @@ textarea {
     bottom: 0;
     left: 0;
     z-index: 0;
-    /* non-critical appearance styles */
+    /*non-critical appearance styles*/ 
     list-style: none;
     background: #111;
 }
 
-/* Navigation Menu - List items */
+/*Navigation Menu - List items*/ 
 .nav-item {
-    /* non-critical appearance styles */
+    /*non-critical appearance styles*/ 
     width: 200px;
     border-top: 1px solid #111;
     border-bottom: 1px solid #000;
 }
 
     .nav-item a {
-        /* non-critical appearance styles */
+        /*non-critical appearance styles*/ 
         display: block;
         padding: 1em;
         background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
@@ -94,37 +94,37 @@ textarea {
             background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(75,20,20,0.65) 100%);
         }
 
-/* Site Wrapper - Everything that isn't navigation */
+/*Site Wrapper - Everything that isn't navigation*/ 
 .site-wrap {
-    /* Critical position and size styles */
+    /*Critical position and size styles*/ 
     min-height: 100%;
     min-width: 100%;
-    background-color: white; /* Needs a background or else the nav will show through */
+    background-color: white; /*Needs a background or else the nav will show through*/ 
     position: relative;
     top: 0;
     bottom: 100%;
     left: 0;
     z-index: 1;
-    /* non-critical apperance styles */
+    /*non-critical apperance styles*/ 
     padding: 4em;
-   /* background-image: linear-gradient(135deg, rgb(254,255,255) 0%,rgb(221,241,249) 35%,rgb(160,216,239) 100%);*/
+   /*background-image: linear-gradient(135deg, rgb(254,255,255) 0%,rgb(221,241,249) 35%,rgb(160,216,239) 100%);*/
     background-size: 200%;
 }
 
-/* Nav Trigger */
+/*Nav Trigger*/ 
 .nav-trigger {
-    /* critical styles - hide the checkbox input */
+    /*critical styles - hide the checkbox input*/ 
     position: absolute;
     clip: rect(0, 0, 0, 0);
 }
 
 label[for="nav-trigger"] {
-    /* critical positioning styles */
+    /*critical positioning styles*/ 
     position: fixed;
     left: 15px;
     top: 15px;
     z-index: 2;
-    /* non-critical apperance styles */
+    /*non-critical apperance styles*/ 
     height: 30px;
     width: 30px;
     cursor: pointer;
@@ -132,7 +132,7 @@ label[for="nav-trigger"] {
     background-size: contain;
 }
 
-/* Make the Magic Happen */
+/*Make the Magic Happen*/ 
 .nav-trigger + label, .site-wrap {
     transition: left 0.2s;
 }
@@ -147,11 +147,11 @@ label[for="nav-trigger"] {
 }
 
 body {
-    /* Without this, the body has excess horizontal scroll when the menu is open */
+    /*Without this, the body has excess horizontal scroll when the menu is open*/ 
     overflow-x: hidden;
 }
 
-/* Additional non-critical styles */
+/*Additional non-critical styles*/ 
 
 h1, h3, p {
     max-width: 600px;
@@ -176,3 +176,7 @@ html, body {
     width: 100%;
     font-family: Helvetica, Arial, sans-serif;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
